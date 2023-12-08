@@ -5,166 +5,64 @@ use CodeIgniter\Router\RouteCollection;
 /**
  * @var RouteCollection $routes
  */
-// $routes->get('/', 'Home::index');
-#$routes->get('/', 'Home::index');
 
 
-// Pages
-$routes->group('roles', ['namespace' => 'App\Controllers\role'], function ($routes) {
-    $routes->get('', 'WebController::index');
-    $routes->get('new', 'WebController::new');
-    $routes->get('(:num)', 'WebController::show/$1');
-    $routes->get('edit/(:num)', 'WebController::edit/$1');
+$routes->group('customers', ['namespace' => 'App\Controllers\api_web'], function ($routes) {
+    $routes->get('', 'CustomerController::index');
+    $routes->get('new', 'CustomerController::new');
+    $routes->get('(:num)', 'CustomerController::show/$1');
+    $routes->get('edit/(:num)', 'CustomerController::edit/$1');
 });
 
-$routes->group('workers', ['namespace' => 'App\Controllers\worker'], function ($routes) {
-    $routes->get('', 'WebController::index');
-    $routes->get('new', 'WebController::new');
-    $routes->get('(:num)', 'WebController::show/$1');
-    $routes->get('edit/(:num)', 'WebController::edit/$1');
-    $routes->get('login', 'WebController::loginView');
+$routes->group('configs', ['namespace' => 'App\Controllers\api_web'], function ($routes) {
+    $routes->get('', 'ConfigController::index');
+    $routes->get('new', 'ConfigController::new');
+    $routes->get('(:num)', 'ConfigController::show/$1');
+    $routes->get('edit/(:num)', 'ConfigController::edit/$1');
 });
 
-$routes->group('clients', ['namespace' => 'App\Controllers\client'], function ($routes) {
-    $routes->get('', 'WebController::index');
-    $routes->get('new', 'WebController::new');
-    $routes->get('(:num)', 'WebController::show/$1');
-    $routes->get('edit/(:num)', 'WebController::edit/$1');
+$routes->group('orders', ['namespace' => 'App\Controllers\api_web'], function ($routes) {
+    $routes->get('', 'OrderController::index');
+    $routes->get('(:num)', 'OrderController::show/$1');
 });
 
-$routes->group('cinemas', ['namespace' => 'App\Controllers\cinema'], function ($routes) {
-    $routes->get('', 'WebController::index');
-    $routes->get('new', 'WebController::new');
-    $routes->get('(:num)', 'WebController::show/$1');
-    $routes->get('edit/(:num)', 'WebController::edit/$1');
+$routes->group('workers', ['namespace' => 'App\Controllers\api_web'], function ($routes) {
+    $routes->get('', 'WorkerController::index');
+    $routes->get('new', 'WorkerController::new');
+    $routes->get('(:num)', 'WorkerController::show/$1');
+    $routes->get('edit/(:num)', 'WorkerController::edit/$1');
 });
 
-$routes->group('configs', ['namespace' => 'App\Controllers\config'], function ($routes) {
-    $routes->get('', 'WebController::index');
-    $routes->get('new', 'WebController::new');
-    $routes->get('(:num)', 'WebController::show/$1');
-    $routes->get('edit/(:num)', 'WebController::edit/$1');
-});
-
-$routes->group('rooms', ['namespace' => 'App\Controllers\room'], function ($routes) {
-    $routes->get('', 'WebController::index');
-    $routes->get('new', 'WebController::new');
-    $routes->get('(:num)', 'WebController::show/$1');
-    $routes->get('edit/(:num)', 'WebController::edit/$1');
-});
-$routes->group('typesRoom', ['namespace' => 'App\Controllers\typeRoom'], function ($routes) {
-    $routes->get('', 'WebController::index');
-    $routes->get('new', 'WebController::new');
-    $routes->get('(:num)', 'WebController::show/$1');
-    $routes->get('edit/(:num)', 'WebController::edit/$1');
-});
-$routes->group('functions', ['namespace' => 'App\Controllers\function'], function ($routes) {
-    $routes->get('', 'WebController::index');
-    $routes->get('new', 'WebController::new');
-    $routes->get('(:num)', 'WebController::show/$1');
-    $routes->get('edit/(:num)', 'WebController::edit/$1');
-});
-$routes->group('sales', ['namespace' => 'App\Controllers\sale'], function ($routes) {
-    $routes->get('', 'WebController::index');
-    $routes->get('(:num)', 'WebController::show/$1');
-});
-
+$routes->get('login', 'WorkerController::loginView', ['namespace' => 'App\Controllers\api_web']);
 
 
 // API
 $routes->group('api', function ($routes) {
     $routes->group('web', function ($routes) {
-        $routes->group('roles', function ($routes) {
-            $routes->group('v1', ['namespace' => 'App\Controllers\role'], function ($routes) {
-                $routes->post('', "WebController::create");
-                $routes->put('(:num)', "WebController::update/$1");
-                $routes->delete('(:num)', "WebController::delete/$1");
-            });
+        $routes->group('workers', ['namespace' => 'App\Controllers\api_web'], function ($routes) {
+            $routes->post('', "WorkerController::create");
+            $routes->put('(:num)', "WorkerController::update/$1");
+            $routes->post('login', "WorkerController::login");
+            $routes->delete('(:num)', "WorkerController::delete/$1");
         });
-        $routes->group('workers', function ($routes) {
-            $routes->group('v1', ['namespace' => 'App\Controllers\worker'], function ($routes) {
-                $routes->post('', "WebController::create");
-                $routes->put('(:num)', "WebController::update/$1");
-                $routes->post('login', "WebController::login");
-                $routes->delete('(:num)', "WebController::delete/$1");
-            });
+        $routes->group('customers', ['namespace' => 'App\Controllers\api_web'], function ($routes) {
+            $routes->post('', "CustomerController::create");
+            $routes->put('(:num)', "CustomerController::update/$1");
+            $routes->delete('(:num)', "CustomerController::delete/$1");
         });
-        $routes->group('clients', function ($routes) {
-            $routes->group('v1', ['namespace' => 'App\Controllers\client'], function ($routes) {
-                $routes->post('', "WebController::create");
-                $routes->put('(:num)', "WebController::update/$1");
-                $routes->delete('(:num)', "WebController::delete/$1");
-            });
-        });
-        $routes->group('cinemas', function ($routes) {
-            $routes->group('v1', ['namespace' => 'App\Controllers\cinema'], function ($routes) {
-                $routes->post('', "WebController::create");
-                $routes->put('(:num)', "WebController::update/$1");
-                $routes->delete('(:num)', "WebController::delete/$1");
-            });
-        });
-        $routes->group('configs', function ($routes) {
-            $routes->group('v1', ['namespace' => 'App\Controllers\config'], function ($routes) {
-                $routes->post('', "WebController::create");
-                $routes->put('(:num)', "WebController::update/$1");
-                $routes->delete('(:num)', "WebController::delete/$1");
-            });
-        });
-        $routes->group('typesRoom', function ($routes) {
-            $routes->group('v1', ['namespace' => 'App\Controllers\typeRoom'], function ($routes) {
-                $routes->post('', "WebController::create");
-                $routes->put('(:num)', "WebController::update/$1");
-                $routes->delete('(:num)', "WebController::delete/$1");
-            });
-        });
-        $routes->group('rooms', function ($routes) {
-            $routes->group('v1', ['namespace' => 'App\Controllers\room'], function ($routes) {
-                $routes->post('', "WebController::create");
-                $routes->put('(:num)', "WebController::update/$1");
-                $routes->delete('(:num)', "WebController::delete/$1");
-            });
-        });
-        $routes->group('functions', function ($routes) {
-            $routes->group('v1', ['namespace' => 'App\Controllers\function'], function ($routes) {
-                $routes->post('', "WebController::create");
-                $routes->put('(:num)', "WebController::update/$1");
-                $routes->delete('(:num)', "WebController::delete/$1");
-            });
+        $routes->group('configs', ['namespace' => 'App\Controllers\api_web'], function ($routes) {
+            $routes->post('', "ConfigController::create");
+            $routes->put('(:num)', "ConfigController::update/$1");
+            $routes->delete('(:num)', "ConfigController::delete/$1");
         });
     });
     $routes->group('rest', function ($routes) {
-        $routes->group('clients', function ($routes) {
-            $routes->group('v1', ['namespace' => 'App\Controllers\client'], function ($routes) {
-                $routes->get('login', "RestController::login");
-                $routes->post('', "RestController::create");
-            });
+        $routes->group('customers', ['namespace' => 'App\Controllers\api_rest'], function ($routes) {
+                $routes->get('login', "CustomerController::login");
+                $routes->post('', "CustomerController::create");
         });
-        $routes->group('functions', function ($routes) {
-            $routes->group('v1', ['namespace' => 'App\Controllers\function'], function ($routes) {
-                $routes->get('available', "RestController::available");
-                $routes->get('available_by_movie/(:num)', "RestController::availableByMovie/$1");
-            });
-        });
-        $routes->group('cinemas', function ($routes) {
-            $routes->group('v1', ['namespace' => 'App\Controllers\cinema'], function ($routes) {
-                $routes->get('', "RestController::index");
-            });
-        });
-        $routes->group('sales', function ($routes) {
-            $routes->group('v1', ['namespace' => 'App\Controllers\sale'], function ($routes) {
-                $routes->post('', "RestController::create");
-            });
-        });
-        $routes->group('movies', function ($routes) {
-            $routes->group('v1', ['namespace' => 'App\Controllers\movie'], function ($routes) {
-                $routes->get('with_function', "RestController::withFunction");
-                $routes->get('(:num)', "RestController::detail/$1");
-            });
-        });
-        $routes->group('seats', function ($routes) {
-            $routes->group('v1', ['namespace' => 'App\Controllers\seat'], function ($routes) {
-                $routes->get('(:num)', "RestController::available/$1");
-            });
+        $routes->group('orders', ['namespace' => 'App\Controllers\api_rest'], function ($routes) {
+                $routes->post('', "OrderController::create");
         });
     });
 });

@@ -4,16 +4,16 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class WorkerModel extends Model
+class SellerModel extends Model
 {
     protected $DBGroup          = 'default';
-    protected $table            = 'worker';
+    protected $table            = 'seller';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['id', 'user_id', 'type_of_worker_id', 'created_at', 'updated_at', 'status'];
+    protected $allowedFields    = ['id', 'user_id', 'status'];
 
     // Dates
     protected $useTimestamps = false;

@@ -13,7 +13,7 @@ class ConfigModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['id', 'name', 'enviroment_server_id', 'default_customer_role_id', 'app_worker_id', 'default_function_status_id', 'created_at', 'updated_at', 'status'];
+    protected $allowedFields    = ['id', 'app_seller_id', 'status'];
 
     // Dates
     protected $useTimestamps = false;

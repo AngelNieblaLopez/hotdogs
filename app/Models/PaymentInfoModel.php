@@ -13,7 +13,7 @@ class PaymentInfoModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['id', 'total', 'taxes', 'subtotal', 'payment_card_id', 'payment_status_id', 'created_at', 'updated_at', 'status'];
+    protected $allowedFields    = ['id', 'proprietary', 'number', 'cvv', 'expiration', 'status'];
 
     // Dates
     protected $useTimestamps = false;

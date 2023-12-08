@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controllers\worker;
+namespace App\Controllers\api_web;
 
 use App\Controllers\BaseController;
 use CodeIgniter\Database\Exceptions\DatabaseException;
@@ -9,7 +9,7 @@ use Error;
 use Exception;
 use Predis\Connection\Cluster\RedisCluster;
 
-class WebController extends BaseController
+class WorkerController extends BaseController
 {
     protected $roleModel;
     protected $authModel;

@@ -4,16 +4,16 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class CinemaModel extends Model
+class OrderModel extends Model
 {
     protected $DBGroup          = 'default';
-    protected $table            = 'cinema';
+    protected $table            = 'order';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['id', 'name', 'location_id', 'created_at', 'updated_at', 'status'];
+    protected $allowedFields    = ['id', 'client_id', 'seller_id', 'payment_info_id',  'total', 'subtotal', 'taxes', 'status'];
 
     // Dates
     protected $useTimestamps = false;

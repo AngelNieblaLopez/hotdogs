@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controllers\client;
+namespace App\Controllers\api_web;
 use App\Controllers\BaseController;
 use CodeIgniter\Database\Exceptions\DatabaseException;
 use CodeIgniter\HTTP\Exceptions\RedirectException;
@@ -8,7 +8,7 @@ use Error;
 use Exception;
 use Predis\Connection\Cluster\RedisCluster;
 
-class WebController extends BaseController
+class CustomerController extends BaseController
 {
     protected $roleModel;
     protected $authModel;

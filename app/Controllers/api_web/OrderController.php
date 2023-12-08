@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controllers\sale;
+namespace App\Controllers\api_web;
 
 use App\Controllers\BaseController;
 use CodeIgniter\Database\Exceptions\DatabaseException;
@@ -9,7 +9,7 @@ use Error;
 use Exception;
 use Predis\Connection\Cluster\RedisCluster;
 
-class WebController extends BaseController
+class OrderController extends BaseController
 {
     protected $saleModel;
     protected $seatOfRoomModel;
