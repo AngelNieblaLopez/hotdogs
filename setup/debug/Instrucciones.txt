@@ -1,0 +1,14 @@
+Ver los dos videos:
+
+1- https://www.youtube.com/watch?v=-m6QLfYKJ5k
+2- https://www.youtube.com/watch?v=uwPobL2jCnw
+
+En el primer video muestra:
+1- como se descarga la extensión, 
+2- como se genera el launch.json que se guarda en tu maquina (el archivo está en esta misma carpeta) lo copias y lo pegas cuando lo tengas que crear
+3- como se corre y hace prueba de debug
+
+En el segundo video muestra:
+1- como descargar e instalar la extensión
+2- solo es necesario llegar hasta la parte de la instalación
+3- al final no es necesario tener corriendo el proceso de php de xampp
