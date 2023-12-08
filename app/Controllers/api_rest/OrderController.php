@@ -37,15 +37,6 @@ class OrderController extends ResourceController
         $this->session = \Config\Services::session();
         $this->db = \Config\Database::connect();
         $this->configModel = new ConfigModel();
-        $this->authModel = new AuthModel();
-        $this->userModel = new UserModel();
-        $this->clientModel = new ClientModel();
-        $this->seatOfFunctionModel = new SeatOfFunctionModel();
-        $this->seatOfRoomModel = new SeatOfRoomModel();
-        $this->saleDetailModel = new SaleDetailModel();
-        $this->saleModel = new SaleModel();
-        $this->paymentInfoModel = new PaymentInfoModel();
-        $this->paymentCardModel = new PaymentCardModel();
     }
 
 
@@ -54,7 +45,20 @@ class OrderController extends ResourceController
      */
     public function create()
     {
-   
+        $json = $this->request->getJSON();
+
+        $customerId = $json->customerId;
+        $sellerId = $json->sellerId;
+        $items = $json->items;
+
+        $cardProprietary  = $json->cardProprietary;
+        $cardNumber = $json->cardNumber;
+        $cardCvv = $json->cardCvv;
+        $cardExpiration = $json->cardExpiration;
+
+
+        $userId = $this->db->insertID();
+
         return $this->respond($respuesta, 201);
     }
 }

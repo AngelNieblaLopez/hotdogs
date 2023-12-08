@@ -4,7 +4,6 @@ namespace App\Controllers\api_rest;
 
 use CodeIgniter\RESTful\ResourceController;
 use App\Models\UserModel;
-use App\Models\ClientModel;
 use App\Models\CustomerModel;
 
 class CustomerController extends ResourceController
@@ -44,12 +43,14 @@ class CustomerController extends ResourceController
             "second_last_name" => $secondLastName,
             "password" => $password,
             "email" => $email,
+            "status" => 1
         ]);
 
         $userId = $this->db->insertID();
 
         $this->customerModel->save([
             "user_id" => $userId,
+            "status" => 1
         ]);
 
         $respuesta = [
@@ -71,8 +72,8 @@ class CustomerController extends ResourceController
         $password = $query["password"];
 
         $user = $this->customerModel
-            ->where("user.email = '$email' AND auth.password = '$password' AND client.status = 1")
-            ->join("user", "user.id = client.user_id")
+            ->where("user.email = '$email' AND user.password = '$password' AND customer.status = 1")
+            ->join("user", "user.id = customer.user_id")
             ->findAll(1);
 
         $respuesta = null;

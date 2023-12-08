@@ -5,18 +5,18 @@ USE hot_dogs;
 
 CREATE TABLE product (
     id int primary key AUTO_INCREMENT,
-    key varchar NOT NULL,
+    `key` varchar(128) NOT NULL,
     price decimal(5, 2) NOT NULL,
     status bit NOT NULL
 );
 
 CREATE TABLE user (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    name VARCHAR NOT NULL,
-    last_name VARCHAR NOT NULL,
-    second_last_name VARCHAR NOT NULL,
-    password VARCHAR NOT NULL,
-    email VARCHAR NOT NULL,
+    name varchar(128) NOT NULL,
+    last_name varchar(128) NOT NULL,
+    second_last_name varchar(128) NOT NULL,
+    password varchar(128) NOT NULL,
+    email varchar(128) NOT NULL,
     status bit NOT NULL
 );
 
@@ -34,16 +34,16 @@ CREATE TABLE customer (
 
 CREATE TABLE payment_info (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    proprietary VARCHAR NOT NULL,
-    number VARCHAR NOT NULL,
-    cvv VARCHAR NOT NULL,
-    expiration varchar NOT NULL,
+    proprietary varchar(128) NOT NULL,
+    number varchar(128) NOT NULL,
+    cvv varchar(128) NOT NULL,
+    expiration varchar(128) NOT NULL,
     status bit NOT NULL
 );
 
-CREATE TABLE order (
+CREATE TABLE `order` (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    client_id INT NOT NULL,
+    customer_id INT NOT NULL,
     seller_id INT NOT NULL,
     payment_info_id INT NOT NULL,
     total decimal(5, 2) NOT NULL,
@@ -55,12 +55,19 @@ CREATE TABLE order (
 CREATE TABLE order_item (
     id INT PRIMARY KEY AUTO_INCREMENT,
     order_id INT NOT NULL,
+    product_id INT NOT NULL,
+    quantity INT NOT NULL,
+    price DECIMAL(5, 2) NOT NULL,
+    subtotal INT NOT NULL,
+    taxes DECIMAL(5,2) NOT NULL,
+    total DECIMAL(5,2) NOT NULL,
+
     status bit
 );
 
 CREATE TABLE config (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    app_seller_id INT NOT NULL,
+    app_seller_id INT NOT NULL
 );
 
 ALTER TABLE
@@ -74,24 +81,29 @@ ADD
     CONSTRAINT customer_user FOREIGN KEY(user_id) REFERENCES user (id);
 
 ALTER TABLE
-    order
+    `order`
 ADD
-    CONSTRAINT order_client FOREIGN KEY(client_id) REFERENCES client (id);
+    CONSTRAINT order_customer FOREIGN KEY(customer_id) REFERENCES customer (id);
 
 ALTER TABLE
-    order
+    `order`
 ADD
     CONSTRAINT order_seller FOREIGN KEY(seller_id) REFERENCES seller (id);
 
 ALTER TABLE
-    order
+    `order`
 ADD
     CONSTRAINT order_payment_info FOREIGN KEY(payment_info_id) REFERENCES payment_info (id);
 
 ALTER TABLE
     order_item
 ADD
-    CONSTRAINT order_item_order FOREIGN KEY(order_id) REFERENCES order (id);
+    CONSTRAINT order_item_order FOREIGN KEY(order_id) REFERENCES `order` (id);
+
+ALTER TABLE
+    order_item
+ADD
+    CONSTRAINT order_item_product FOREIGN KEY(product_id) REFERENCES product (id);
 
 ALTER TABLE
     config
