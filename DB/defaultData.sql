@@ -1,8 +1,8 @@
 
-INSERT INTO user (name, last_name, second_last_name, password, email) values ("App", "", "", "123456", "app@gmail.com");
-INSERT INTO saler (user_id) values (1);
+INSERT INTO user (name, last_name, second_last_name, password, email, status) values ("App", "", "", "123456", "app@gmail.com", 1);
+INSERT INTO seller (user_id, status) values (1, status);
 
-INSERT INTO config (app_saler_id) values (1);
+INSERT INTO config (app_seller_id, status) values (1, 1);
 
 
 INSERT INTO product (`key`, price, status) values ("h1", 110, 1);

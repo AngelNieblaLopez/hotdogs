@@ -9,16 +9,13 @@ use App\Models\CustomerModel;
 class CustomerController extends ResourceController
 {
 
-    protected $session;
     protected $db;
     protected $userModel;
     protected $customerModel;
 
     public function __construct()
     {
-        helper(['form', 'url', 'session']);
         $this->db = \Config\Database::connect();
-        $this->session = \Config\Services::session();
         $this->customerModel = new CustomerModel();
         $this->userModel = new UserModel();
     }
@@ -55,7 +52,7 @@ class CustomerController extends ResourceController
 
         $respuesta = [
             'error' => null,
-            'message' => ['success' => 'Recurso almacenado satisfactoriamente'],
+            'message' => ['success' => 'Petición realizada con exito'],
             'data' => null
         ];
 
@@ -81,7 +78,7 @@ class CustomerController extends ResourceController
         if ($user) {
             $respuesta = [
                 'error' => null,
-                'message' => ['success' => 'Recurso obtenido satisfactoriamente'],
+                'message' => ['success' => 'Petición realizada con exito'],
                 'data' => $user[0]
             ];
         } else {

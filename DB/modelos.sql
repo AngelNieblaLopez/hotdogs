@@ -67,7 +67,8 @@ CREATE TABLE order_item (
 
 CREATE TABLE config (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    app_seller_id INT NOT NULL
+    app_seller_id INT NOT NULL,
+    status bit
 );
 
 ALTER TABLE
