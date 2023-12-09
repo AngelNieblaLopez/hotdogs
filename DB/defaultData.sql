@@ -1,6 +1,9 @@
 
 INSERT INTO user (name, last_name, second_last_name, password, email, status) values ("App", "", "", "123456", "app@gmail.com", 1);
-INSERT INTO seller (user_id, status) values (1, status);
+INSERT INTO seller (user_id, status) values (1, 1);
+
+INSERT INTO user (name, last_name, second_last_name, password, email, status) values ("Admin", "", "", "123456", "admin@gmail.com", 1);
+INSERT INTO seller (user_id, status) values (2, 1);
 
 INSERT INTO config (app_seller_id, status) values (1, 1);
 

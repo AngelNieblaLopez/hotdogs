@@ -26,42 +26,42 @@ $routes->group('orders', ['namespace' => 'App\Controllers\api_web'], function ($
     $routes->get('(:num)', 'OrderController::show/$1');
 });
 
-$routes->group('workers', ['namespace' => 'App\Controllers\api_web'], function ($routes) {
-    $routes->get('', 'WorkerController::index');
-    $routes->get('new', 'WorkerController::new');
-    $routes->get('(:num)', 'WorkerController::show/$1');
-    $routes->get('edit/(:num)', 'WorkerController::edit/$1');
+$routes->group('sellers', ['namespace' => 'App\Controllers\api_web'], function ($routes) {
+    $routes->get('', 'SellerController::index');
+    $routes->get('new', 'SellerController::new');
+    $routes->get('(:num)', 'SellerController::show/$1');
+    $routes->get('edit/(:num)', 'SellerController::edit/$1');
 });
 
-$routes->get('login', 'WorkerController::loginView', ['namespace' => 'App\Controllers\api_web']);
+$routes->get('login', 'IndexController::login');
 
 
 // API
 $routes->group('api', function ($routes) {
-    $routes->group('web', function ($routes) {
-        $routes->group('workers', ['namespace' => 'App\Controllers\api_web'], function ($routes) {
-            $routes->post('', "WorkerController::create");
-            $routes->put('(:num)', "WorkerController::update/$1");
-            $routes->post('login', "WorkerController::login");
-            $routes->delete('(:num)', "WorkerController::delete/$1");
+    $routes->group('web', ['namespace' => 'App\Controllers\api_web'], function ($routes) {
+        $routes->post('login', "IndexController::logeo");
+        $routes->group('sellers', function ($routes) {
+            $routes->post('', "SellerController::create");
+            $routes->put('(:num)', "SellerController::update/$1");
+            $routes->delete('(:num)', "SellerController::delete/$1");
         });
-        $routes->group('customers', ['namespace' => 'App\Controllers\api_web'], function ($routes) {
+        $routes->group('customers', function ($routes) {
             $routes->post('', "CustomerController::create");
             $routes->put('(:num)', "CustomerController::update/$1");
             $routes->delete('(:num)', "CustomerController::delete/$1");
         });
-        $routes->group('configs', ['namespace' => 'App\Controllers\api_web'], function ($routes) {
+        $routes->group('configs', function ($routes) {
             $routes->post('', "ConfigController::create");
             $routes->put('(:num)', "ConfigController::update/$1");
             $routes->delete('(:num)', "ConfigController::delete/$1");
         });
     });
-    $routes->group('rest', function ($routes) {
-        $routes->group('customers', ['namespace' => 'App\Controllers\api_rest'], function ($routes) {
+    $routes->group('rest', ['namespace' => 'App\Controllers\api_rest'], function ($routes) {
+        $routes->group('customers', function ($routes) {
                 $routes->get('login', "CustomerController::login");
                 $routes->post('', "CustomerController::create");
         });
-        $routes->group('orders', ['namespace' => 'App\Controllers\api_rest'], function ($routes) {
+        $routes->group('orders', function ($routes) {
                 $routes->post('', "OrderController::create");
         });
     });

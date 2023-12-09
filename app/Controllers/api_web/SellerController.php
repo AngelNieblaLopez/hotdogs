@@ -4,10 +4,10 @@ namespace App\Controllers\api_web;
 use App\Controllers\BaseController;
 use Exception;
 
-class CustomerController extends BaseController
+class SellerController extends BaseController
 {
     protected $userModel;
-    protected $customerModel;
+    protected $sellerModel;
     protected $db;
     protected $session;
 
@@ -17,66 +17,66 @@ class CustomerController extends BaseController
         $this->session = \Config\Services::session();
         $this->db = \Config\Database::connect();
         $this->userModel = model('UserModel');
-        $this->customerModel = model('CustomerModel');
+        $this->sellerModel = model('SellerModel');
     }
 
     public function index()
     {
-        $whereFetch = "customer.status = 1";
-        $customers = $this->customerModel
+        $whereFetch = "seller.status = 1";
+        $sellers = $this->sellerModel
             ->select("
-        customer.id,
+        seller.id,
         user.name, 
         user.last_name, 
         user.second_last_name")
-            ->join('user', 'customer.user_id = user.id')
-            ->where($whereFetch)->orderBy('customer.id', 'asc')->findAll();
-        return view('customers/index', compact('customers'));
+            ->join('user', 'seller.user_id = user.id')
+            ->where($whereFetch)->orderBy('seller.id', 'asc')->findAll();
+        return view('sellers/index', compact('sellers'));
     }
 
     public function show($id = null)
     {
-        $customer = $this->customerModel
+        $seller = $this->sellerModel
             ->select("
-            customer.id,   
+            seller.id,   
             user.name, 
             user.last_name, 
             user.second_last_name,
             user.email,
             user.password")
-            ->join('user', 'customer.user_id = user.id')
-            ->where("customer.status = 1")->find((int)$id);
+            ->join('user', 'seller.user_id = user.id')
+            ->where("seller.status = 1")->find((int)$id);
 
-        if ($customer) {
-            return view('customers/show', compact('customer'));
+        if ($seller) {
+            return view('sellers/show', compact('seller'));
         } else {
-            return redirect()->to(site_url('/customers'));
+            return redirect()->to(site_url('/sellers'));
         }
     }
 
     public function new()
     {
-        return view('customers/new');
+        return view('sellers/new');
     }
 
     public function edit($id = null)
     {
-        $customer = $this->customerModel
+        $seller = $this->sellerModel
             ->select("
-        customer.id,   
+        seller.id,   
         user.name, 
         user.last_name, 
         user.second_last_name,
         user.email,
         user.password")
-            ->join('user', 'customer.user_id = user.id')
-            ->where("customer.status = 1")->find((int)$id);
+            ->join('user', 'seller.user_id = user.id')
+            ->where("seller.status = 1")->find((int)$id);
 
-        if ($customer) {
-            return view('customers/edit', compact("customer"));
+        if ($seller) {
+            return view('sellers/edit', compact("seller"));
         } else {
-            session()->setFlashdata('failed', 'Cliente no encontrado');
-            return redirect()->to('/customers');
+            session()->setFlashdata('failed', 'Vendedor no encontrado');
+            return redirect()->to('/sellers');
         }
     }
 
@@ -94,13 +94,13 @@ class CustomerController extends BaseController
 
         $userId = $this->db->insertID();
 
-        $this->customerModel->save([
+        $this->sellerModel->save([
             "user_id" => $userId,
             "status" => 1
         ]);
 
         session()->setFlashdata("success", "Se registró correctamente");
-        return redirect()->to(site_url('/customers'));
+        return redirect()->to(site_url('/sellers'));
     }
 
     public function update($id = null)
@@ -113,12 +113,12 @@ class CustomerController extends BaseController
         $email = $this->request->getVar('email');
 
 
-        $customer = $this->customerModel
-            ->join('user', 'user.id = customer.user_id')
-            ->where("customer.status = 1")->find($id);
+        $seller = $this->sellerModel
+            ->join('user', 'user.id = seller.user_id')
+            ->where("seller.status = 1")->find($id);
 
         $this->userModel->save([
-            "id" => $customer["user_id"],
+            "id" => $seller["user_id"],
             "name" => $name,
             "last_name" => $lastName,
             "second_last_name" => $secondLastName,
@@ -127,33 +127,33 @@ class CustomerController extends BaseController
         ]);
 
         session()->setFlashdata('success', "Se modificaron los datos correctamente");
-        return redirect()->to(base_url('/customers'));
+        return redirect()->to(base_url('/sellers'));
     }
 
     public function delete($id = null)
     {
 
-        $customer = $this->customerModel
+        $seller = $this->sellerModel
             ->select("id, user_id")
             ->where("status = 1")
             ->find($id);
 
-        if (!$customer) {
-            throw new Exception("Cliente no encontrado");
+        if (!$seller) {
+            throw new Exception("Vendedor no encontrado");
         }
 
 
-        $this->customerModel->save([
-            "id" => $customer['id'],
+        $this->sellerModel->save([
+            "id" => $seller['id'],
             "status" => 0
         ]);
 
         $this->userModel->save([
-            "id" => $customer["user_id"],
+            "id" => $seller["user_id"],
             "status" => 0
         ]);
 
-        session()->setFlashdata('success', 'Cliente eliminado');
-        return redirect()->to(base_url('/customers'));
+        session()->setFlashdata('success', 'Vendedor eliminado');
+        return redirect()->to(base_url('/sellers'));
     }
 }

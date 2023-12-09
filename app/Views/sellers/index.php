@@ -1,13 +1,13 @@
 
 <?= $this->extend('layouts/base_layout');
-$this->section('title'); ?> Listado de configuraciones <?= $this->endSection(); ?>
+$this->section('title'); ?> Lista de trabajadores <?= $this->endSection(); ?>
 
 <?= $this->section('content'); ?>
 
 <div class="container">
     <div class="row py-4">
         <div class="col-xl-12 text-end">
-            <a href="<?= base_url('configs/new') ?>" class="btn btn-primary">Nueva configuración</a>
+            <a href="<?= base_url('sellers/new') ?>" class="btn btn-primary">Nuevo</a>
         </div>
     </div>
 </div>
@@ -28,7 +28,7 @@ $this->section('title'); ?> Listado de configuraciones <?= $this->endSection(); 
         <?php endif; ?>
         <div class="card">
             <div class="card-header">
-                <h5 class="card-title">Configuraciones</h5>
+                <h5 class="card-title">Trabajadores</h5>
             </div>
 
             <div class="card-body">
@@ -37,32 +37,34 @@ $this->section('title'); ?> Listado de configuraciones <?= $this->endSection(); 
                         <tr>
                             <th>Id</th>
                             <th>Nombre</th>
-                            <th>Entorno</th>
+                            <th>Apellido paterno</th>
+                            <th>Apellido materno</th>
                             <th>Acción</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php
-                        if (count($configs) > 0) :
-                            foreach ($configs as $config) : ?>
+                        if (count($sellers) > 0) :
+                            foreach ($sellers as $seller) : ?>
                                 <tr>
-                                    <td> <?= $config['id'] ?> </td>
-                                    <td> <?= $config['name'] ?> </td>
-                                    <td> <?= $config['enviroment_server_name'] ?> </td>
+                                    <td> <?= $seller['id'] ?> </td>
+                                    <td> <?= $seller['name'] ?> </td>
+                                    <td> <?= $seller['last_name'] ?> </td>
+                                    <td> <?= $seller['second_last_name'] ?> </td>
                                     <td class="d-flex">
-                                        <a href="<?= base_url("configs/" . $config["id"]) ?>" class="btn btn-sm btn-info mx-1" title="Mostrar"><i class="bi bi-info-square"></i></a>
-                                        <a href="<?= base_url("configs/edit/" . $config["id"]) ?>" class="btn btn-sm btn-success mx-1" title="Editar"><i class="bi bi-pencil-square"></i></a>
-                                        <form class="display-none" method="post" action="<?= base_url("api/web/configs/v1/" . $config["id"]) ?>" id="deleteConfig<?= $config['id'] ?>">
+                                        <a href="<?= base_url("sellers/" . $seller["id"]) ?>" class="btn btn-sm btn-info mx-1" title="Mostrar"><i class="bi bi-info-square"></i></a>
+                                        <a href="<?= base_url("sellers/edit/" . $seller["id"]) ?>" class="btn btn-sm btn-success mx-1" title="Editar"><i class="bi bi-pencil-square"></i></a>
+                                        <form class="display-none" method="post" action="<?= base_url("api/web/sellers/" . $seller["id"]) ?>" id="deleteSeller<?= $seller['id'] ?>">
                                             <input type="hidden" name="_method" value="DELETE">
-                                            <a href="javascript:void(0)" onclick="deleteConfig('deleteConfig<?= $config['id'] ?>')" class="btn btn-sm btn-danger" title="Eliminar"><i class="bi bi-trash"></i></a>
+                                            <a href="javascript:void(0)" onclick="deleteSeller('deleteSeller<?= $seller['id'] ?>')" class="btn btn-sm btn-danger" title="Eliminar"><i class="bi bi-trash"></i></a>
                                         </form>
                                     </td>
                                 </tr>
                             <?php endforeach;
                         else : ?>
                             <tr>
-                                <td colspan="4">
-                                    <h6 class="text-danger text-center">No se encontraron configuraciones</h6>
+                                <td colspan="5">
+                                    <h6 class="text-danger text-center">No se encontraron trabajadores</h6>
                                 </td>
                             </tr>
                         <?php endif ?>
@@ -74,8 +76,8 @@ $this->section('title'); ?> Listado de configuraciones <?= $this->endSection(); 
 </div>
 
 <script>
-    function deleteConfig(formId) {
-        let confirm = window.confirm('¿Está seguro de eliminar esta configuración?');
+    function deleteSeller(formId) {
+        let confirm = window.confirm('¿Está seguro de eliminar este trabajador?');
         if (confirm) {
             document.getElementById(formId).submit();
         }

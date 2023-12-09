@@ -1,6 +1,6 @@
 
 <?= $this->extend('layouts/base_layout');
-$this->section('title'); ?> Listado de ventas <?= $this->endSection(); ?>
+$this->section('title'); ?> Lista de ventas <?= $this->endSection(); ?>
 
 <?= $this->section('content'); ?>
 
@@ -24,21 +24,21 @@ $this->section('title'); ?> Listado de ventas <?= $this->endSection(); ?>
                     </thead>
                     <tbody>
                         <?php
-                        if (count($sales) > 0) :
-                            foreach ($sales as $sale) : ?>
+                        if (count($orders) > 0) :
+                            foreach ($orders as $order) : ?>
                                 <tr>
-                                    <td> <?= $sale['id'] ?> </td>
-                                    <td> <?= $sale['client_user_name'] ?> </td>
-                                    <td> <?= $sale['worker_user_name'] ?> </td>
-                                    <td> <?= $sale['payment_info_total'] ?> </td>
+                                    <td> <?= $order['id'] ?> </td>
+                                    <td> <?= $order['customer_user_name'] ?> </td>
+                                    <td> <?= $order['seller_user_name'] ?> </td>
+                                    <td> <?= $order['order_total'] ?> </td>
                                     <td class="d-flex">
-                                        <a href="<?= base_url("sales/" . $sale["id"]) ?>" class="btn btn-sm btn-info mx-1" title="Mostrar"><i class="bi bi-info-square"></i></a>
+                                        <a href="<?= base_url("orders/" . $order["id"]) ?>" class="btn btn-sm btn-info mx-1" title="Mostrar"><i class="bi bi-info-square"></i></a>
                                     </td>
                                 </tr>
                             <?php endforeach;
                         else : ?>
                             <tr>
-                                <td colspan="4">
+                                <td colspan="5">
                                     <h6 class="text-danger text-center">No se encontraron ventas</h6>
                                 </td>
                             </tr>
@@ -49,14 +49,5 @@ $this->section('title'); ?> Listado de ventas <?= $this->endSection(); ?>
         </div>
     </div>
 </div>
-
-<script>
-    function deleteUser(formId) {
-        let confirm = window.confirm('¿Está seguro de eliminar esta venta?');
-        if (confirm) {
-            document.getElementById(formId).submit();
-        }
-    }
-</script>
 
 <?= $this->endSection(); ?>

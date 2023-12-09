@@ -1,4 +1,3 @@
-/* https://www.sqlshack.com/learn-sql-naming-conventions/ */
 CREATE DATABASE hot_dogs;
 
 USE hot_dogs;
