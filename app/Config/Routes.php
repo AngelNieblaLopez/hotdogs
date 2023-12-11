@@ -33,7 +33,7 @@ $routes->group('sellers', ['namespace' => 'App\Controllers\api_web'], function (
     $routes->get('edit/(:num)', 'SellerController::edit/$1');
 });
 
-$routes->get('login', 'IndexController::login');
+
 
 
 // API
@@ -66,3 +66,7 @@ $routes->group('api', function ($routes) {
         });
     });
 });
+
+
+$routes->get('login', 'IndexController::login');
+$routes->get('/', 'IndexController::index', ['namespace' => 'App\Controllers\api_web']);
