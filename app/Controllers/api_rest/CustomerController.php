@@ -69,6 +69,7 @@ class CustomerController extends ResourceController
         $password = $query["password"];
 
         $user = $this->customerModel
+        ->select("customer.id, customer.user_id, customer.status, user.name, user.last_name, user.second_last_name, user.password, user.email")
             ->where("user.email = '$email' AND user.password = '$password' AND customer.status = 1")
             ->join("user", "user.id = customer.user_id")
             ->findAll(1);
